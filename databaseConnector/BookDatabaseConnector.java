@@ -1,13 +1,14 @@
-package bookstoreRound2.databaseConnector;
+package bookstore.databaseConnector;
 
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bookstoreRound2.bookDetails.BookDetails;
+import bookstore.bookDetails.BookDetails;
 
 public class BookDatabaseConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore";

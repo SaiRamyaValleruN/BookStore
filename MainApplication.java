@@ -1,13 +1,11 @@
-package bookstoreRound2;
+package bookstore;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
+
+import bookstore.loginWindow.LoginWindow;
 
 public class MainApplication {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SwingUtilities.invokeLater(() -> new bookstoreRound2.ribbonLayout.RibbonLayout());
-
-	}
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(LoginWindow::new);
+    }
 }

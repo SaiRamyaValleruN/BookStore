@@ -1,8 +1,9 @@
-package bookstoreRound2.bookDetails;
+package bookstore.bookDetails;
 
 import javax.swing.JOptionPane;
 
-import bookstoreRound2.databaseConnector.BookDatabaseConnector;
+import bookstore.databaseConnector.BookDatabaseConnector;
+
 
 public class BookSearchHandler {
     public static void handleSearch() {
@@ -17,3 +18,5 @@ public class BookSearchHandler {
         }
     }
 }
+
+

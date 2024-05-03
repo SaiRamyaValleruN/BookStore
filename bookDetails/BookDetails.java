@@ -1,4 +1,4 @@
-package bookstoreRound2.bookDetails;
+package bookstore.bookDetails;
 
 public class BookDetails {
     private String title;
