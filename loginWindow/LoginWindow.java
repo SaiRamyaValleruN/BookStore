@@ -2,7 +2,7 @@ package bookstore.loginWindow;
 
 import javax.swing.*;
 
-import bookstore.RibbonLayout.RibbonLayout;
+import bookstore.ribbonLayout.RibbonLayout;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -90,13 +90,13 @@ public class LoginWindow extends JFrame implements ActionListener {
         if (e.getSource() == loginButton) {
             String userId = userIdField.getText();
             String password = new String(passwordField.getPassword());
-            if (validateUser(userId, password)) {
-                // If user credentials are valid, close the login window and open the main application window
-                dispose(); // Close the login window
+             if (validateUser(userId, password)) {
+                 // If user credentials are valid, close the login window and open the main application window
+                 dispose(); // Close the login window
                 SwingUtilities.invokeLater(RibbonLayout::new);
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid credentials. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+             } else {
+                 JOptionPane.showMessageDialog(this, "Invalid credentials. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+             }
         }
     }
 

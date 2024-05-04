@@ -1,4 +1,4 @@
-package bookstore.RibbonLayout;
+package bookstore.ribbonLayout;
 
 import javax.swing.*;
 
@@ -7,6 +7,8 @@ import javax.swing.text.DefaultEditorKit;
 import bookstore.cart.Cart;
 import bookstore.homepage.GridLayoutManager;
 import bookstore.loginWindow.LoginWindow;
+import bookstore.checkout.CheckoutWindow;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -88,6 +90,7 @@ public class RibbonLayout implements ActionListener {
         edit.add(pasteItem);
         edit.add(selectAllItem);
 
+
         cart = new JMenu("Cart");
         viewCart = new JMenuItem("View Cart");
         clearCart = new JMenuItem("Clear Cart");
@@ -98,6 +101,8 @@ public class RibbonLayout implements ActionListener {
 
      // Add action listener for help menu
         help.addActionListener(this);
+
+
     }
 
     // Method to add menu item with separator
@@ -142,7 +147,14 @@ public class RibbonLayout implements ActionListener {
 
     private void proceedToCheckout() {
 
-        JOptionPane.showMessageDialog(frame, "Checkout process started.", "Checkout", JOptionPane.INFORMATION_MESSAGE);
+//        new CheckoutWindow();
+        JDialog checkoutDialog = new JDialog(frame, "Checkout", true); // true for modal
+        CheckoutWindow checkoutWindow = new CheckoutWindow(); // Create an instance of CheckoutWindow
+        checkoutDialog.add(checkoutWindow); // Add the CheckoutWindow to the dialog
+        checkoutDialog.pack(); // Pack the dialog to size
+        checkoutDialog.setLocationRelativeTo(frame); // Set location relative to the main frame
+        checkoutDialog.setVisible(true); // Display the checkout dialog
+//        JOptionPane.showMessageDialog(frame, "Checkout process started.", "Checkout", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
