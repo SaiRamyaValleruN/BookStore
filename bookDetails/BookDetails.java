@@ -9,10 +9,11 @@ public class BookDetails {
     private int edition;
     private double price;
     private boolean availability;
-    
+	private String imagePath;
+	private String description;
+
 	public BookDetails(String title, String author, String isbn, String publisher, int publicationYear, int edition,
-			double price, boolean availability) {
-		super();
+					   double price, boolean availability, String imagePath, String description) {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
@@ -21,6 +22,8 @@ public class BookDetails {
 		this.edition = edition;
 		this.price = price;
 		this.availability = availability;
+		this.imagePath = imagePath;
+		this.description = description;
 	}
 
 	public String getTitle() {
@@ -87,18 +90,35 @@ public class BookDetails {
 		this.availability = availability;
 	}
 
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public String toString() {
 		return "Title: " + title + "\n" +
-		           "Author: " + author + "\n" +
-		           "ISBN: " + isbn + "\n" +
-		           "Publisher: " + publisher + "\n" +
-		           "Publication Year: " + publicationYear + "\n" +
-		           "Edition: " + edition + "\n" +
-		           "Price: $" + String.format("%.2f", price) + "\n" +
-		           "Availability: " + availability;
+				"Author: " + author + "\n" +
+				"ISBN: " + isbn + "\n" +
+				"Publisher: " + publisher + "\n" +
+				"Publication Year: " + publicationYear + "\n" +
+				"Edition: " + edition + "\n" +
+				"Price: $" + String.format("%.2f", price) + "\n" +
+				"Availability: " + availability + "\n" +
+				"Image Path: " + imagePath;
 	}
 
     
-    
+
 }
