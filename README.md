@@ -1,39 +1,37 @@
-```markdown
-# 📚 BookStore  
+📚 BookStore
 
-A **Java Swing + MySQL desktop application** for managing a bookstore.  
-This app provides functionality for **users** (search & browse books, login) and **admins** (manage books, checkout, add inventory).  
+A Java Swing + MySQL desktop application for managing a bookstore. This app provides functionality for users (search & browse books, login) and admins (manage books, checkout, add inventory).
 
----
+🚀 Features
+👤 User
 
-## 🚀 Features  
+Register/Login with credentials
 
-### 👤 User  
-- Register/Login with credentials  
-- Search books by **title, author, or ISBN**  
-- Browse available books  
-- Checkout with simple form  
+Search books by title, author, or ISBN
 
-### 🛠️ Admin  
-- Add, update, and delete books  
-- Manage user records  
-- View checkout history  
+Browse available books
 
----
+Checkout with simple form
 
-## 🏗️ Tech Stack  
+🛠️ Admin
 
-- **Java Swing** – GUI framework  
-- **MySQL** – Database (bookstore schema with `users` and `BookDetails` tables)  
-- **JDBC (MySQL Connector)** – For database connectivity  
-- **OOP Concepts** – Encapsulation, modular structure  
+Add, update, and delete books
 
----
+Manage user records
 
-## 📂 Project Structure  
+View checkout history
 
-```
+🏗️ Tech Stack
 
+Java Swing – GUI framework
+
+MySQL – Database (bookstore schema with users and BookDetails tables)
+
+JDBC (MySQL Connector) – For database connectivity
+
+OOP Concepts – Encapsulation, modular structure
+
+📂 Project Structure
 BookStore/
 │── admin/                # Admin operations (Add/Update books)
 │── bookDetails/          # Book model class
@@ -47,10 +45,6 @@ BookStore/
 │── resources/images/     # UI images and assets
 │── MainApplication.java  # Main entry point
 │── README.md             # Documentation
-
-````
-
----
 
 ## ⚙️ Setup & Installation  
 
