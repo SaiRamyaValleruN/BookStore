@@ -1,32 +1,27 @@
 package bookstore.databaseConnector;
 
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HexFormat;
 import java.util.List;
-
 import bookstore.bookDetails.BookDetails;
 
 public class BookDatabaseConnector {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/bookstore";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "password";
+    private static final String DB_PASSWORD = "Ramya@200602";
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+   public static Connection getConnection() throws SQLException {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");  // Load MySQL driver
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
     }
+    return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+}
+
 
     public static BookDetails searchBook(String searchTerm) {
-        String query = "SELECT * FROM BookDetails " +
-                "WHERE title LIKE ? OR author LIKE ? OR isbn LIKE ?";
+        String query = "SELECT * FROM BookDetails WHERE title LIKE ? OR author LIKE ? OR isbn LIKE ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, "%" + searchTerm + "%");
@@ -54,7 +49,6 @@ public class BookDatabaseConnector {
         return null;
     }
 
-
     public static void addBook(BookDetails book) throws SQLException {
         String sql = "INSERT INTO BookDetails (title, author, isbn, publisher, publicationYear, edition, price, availability, imagePath, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = getConnection();
@@ -75,7 +69,6 @@ public class BookDatabaseConnector {
         }
     }
 
-
     public static BookDetails fetchBookByISBN(String isbn) throws SQLException {
         String sql = "SELECT * FROM BookDetails WHERE isbn = ?";
         try (Connection conn = getConnection();
@@ -94,15 +87,12 @@ public class BookDatabaseConnector {
                             resultSet.getBoolean("availability"),
                             resultSet.getString("imagePath"),
                             resultSet.getString("description")
-
                     );
                 }
             }
         }
         return null;
     }
-
-
 
     public static List<BookDetails> fetchAllBooks() {
         List<BookDetails> books = new ArrayList<>();
@@ -130,60 +120,33 @@ public class BookDatabaseConnector {
         return books;
     }
 
+    public static boolean validateUser(String username, String password, boolean isUser) {
+    String sql = "SELECT password, role FROM users WHERE username = ?";
 
-    public static boolean validateUser(String userId, String password, boolean isUser) {
+    try (Connection conn = getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        String sql;
-        if (isUser) {
-            // For regular users with plain text passwords
-            sql = "SELECT password FROM Users WHERE userId = ?";
-        } else {
-            // For admins with hashed passwords
-            sql = "SELECT hashed_password FROM Admins WHERE username = ?";
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            String dbPassword = rs.getString("password");
+            String dbRole = rs.getString("role");
+
+            // Debug print
+            System.out.println("DEBUG -> Username: " + username +
+                               " | Input password: " + password +
+                               " | DB password: " + dbPassword +
+                               " | DB role: " + dbRole);
+
+            // Check plain-text password + role
+            return dbPassword.equals(password) &&
+                   ((isUser && dbRole.equalsIgnoreCase("user")) ||
+                    (!isUser && dbRole.equalsIgnoreCase("admin")));
         }
-
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                if (isUser) {
-                    return rs.getString("password").equals(password);
-                } else {
-                    return rs.getString("hashed_password").equals(password);
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-
-
-    public static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] encodedhash = digest.digest(password.getBytes());
-            return HexFormat.of().formatHex(encodedhash);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public static void addAdmin(String username, String password) {
-        String hashedPassword = hashPassword(password);
-
-        String sql = "INSERT INTO Admins (username, hashed_password) VALUES (?, ?)";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.setString(2, hashedPassword);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    return false;
 }
-
+}
