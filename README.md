@@ -100,19 +100,16 @@ java -cp ".;libs/mysql-connector-j-8.4.0.jar" bookstore.MainApplication
 
 ---
 
-## 🎯 Screenshots
+## 📸 Screenshots
 
 ### 🔑 Login Window
+![Login Window](resources/images/login.png)
 
-![Login](resources/images/BookStore.jpg)
-
-### 📖 Book Search
-
-*Add screenshot here*
+### 🏠 Homepage
+![Homepage](resources/images/homepage.png)
 
 ### 🛒 Checkout Window
-
-*Add screenshot here*
+![Checkout Window](resources/images/checkout.png)
 
 ---
 
